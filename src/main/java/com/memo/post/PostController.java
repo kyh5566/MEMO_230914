@@ -1,4 +1,4 @@
-package com.memo.post.mapper;
+package com.memo.post;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
