@@ -30,7 +30,7 @@
 <script>
 	$(document).ready(function() {
 		// 로그인
-		$("#LoginBtn").on("submit",function(e) {
+		$("#loginForm").on("submit",function(e) {
 			e.preventDefault(); // form 화면 이동 방지
 			
 			//alert("로그인");
@@ -49,7 +49,7 @@
 			let url = $(this).attr("action");
 			console.log(url);
 			let params = $(this).serialize();
-			console.log(params)
+			console.log(params);
 			
 			$.post(url, params) // request
 			.done(function(data) { // response
