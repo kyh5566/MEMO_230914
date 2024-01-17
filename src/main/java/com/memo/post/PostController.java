@@ -44,7 +44,7 @@ public class PostController {
 	 * @param model
 	 * @return
 	 */
-	@GetMapping("/post/create-view")
+	@GetMapping("/post-create-view")
 	public String postCreateView(Model model) {
 		model.addAttribute("viewName","post/postCreate");
 		return "template/layout";
