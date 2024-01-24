@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,7 +20,14 @@ import jakarta.servlet.http.HttpSession;
 public class PostRestController {
 	@Autowired
 	private PostBO postBO;
-	
+	/**
+	 *  글쓰기 완료
+	 * @param subject
+	 * @param content
+	 * @param file
+	 * @param session
+	 * @return
+	 */
 	@PostMapping("/create") // ajax의 request url 주소
 	public Map<String, Object> create(
 			@RequestParam("subject")String subject
@@ -35,6 +43,26 @@ public class PostRestController {
 		 postBO.addPost(subject,content,userId,file,userLoginId);
 		
 		//응답값
+		Map<String, Object> result = new HashMap<>();
+		result.put("code", 200);
+		result.put("result", "성공");
+		return result;
+	}
+	
+	@PutMapping("/update")
+	public Map<String, Object> update(
+			@RequestParam("postId") int postId
+			,@RequestParam("subject") String subject
+			,@RequestParam("content") String content
+			,@RequestParam(value = "file", required = false) MultipartFile file
+			,HttpSession session) {
+		
+		int userId = (int)session.getAttribute("userId");
+		String userLoginId = (String)session.getAttribute("userLoginId");
+		// db 업데이트
+		postBO.updatePostByPostId(userId,userLoginId,postId, subject, content, file);
+		
+		// ajax 응답값
 		Map<String, Object> result = new HashMap<>();
 		result.put("code", 200);
 		result.put("result", "성공");
